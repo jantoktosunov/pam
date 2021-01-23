@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zhanysh.pam.repository.CustomerRepository;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Optional;
  */
 @Service
 public class CustomerService {
+
     private CustomerRepository customerRepository;
 
     @Autowired
@@ -22,8 +24,9 @@ public class CustomerService {
     public void createCustomer(Customer customer) {
         this.customerRepository.save(customer);
     }
-    public Optional<Customer> findCustomerById(Long id) {
-        return this.customerRepository.findById(id);
+
+    public Customer findCustomerById(Long id) {
+        return this.customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
 }
