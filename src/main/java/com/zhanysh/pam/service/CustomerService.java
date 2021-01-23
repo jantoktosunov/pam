@@ -1,9 +1,9 @@
-package service;
+package com.zhanysh.pam.service;
 
-import model.Customer;
+import com.zhanysh.pam.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.CustomerRepository;
+import com.zhanysh.pam.repository.CustomerRepository;
 
 import java.util.Optional;
 

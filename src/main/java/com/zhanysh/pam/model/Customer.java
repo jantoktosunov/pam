@@ -1,4 +1,4 @@
-package model;
+package com.zhanysh.pam.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
