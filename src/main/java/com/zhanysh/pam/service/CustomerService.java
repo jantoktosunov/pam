@@ -1,5 +1,6 @@
 package com.zhanysh.pam.service;
 
+import com.zhanysh.pam.exception.CustomerNotFoundException;
 import com.zhanysh.pam.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CustomerService {
     }
 
     public Customer findCustomerById(Long id) {
-        return this.customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return this.customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
 }
