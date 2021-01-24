@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -19,15 +22,20 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @NotBlank
     @Column(name = "FIRSTNAME")
     private String firstName;
 
+    @NotNull
+    @NotBlank
     @Column(name = "LASTNAME")
     private String lastName;
 
     @Column(name = "ADDRESS")
     private String address;
 
+    @Email
     @Column(name = "EMAIL")
     private String email;
 
