@@ -17,20 +17,33 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Handles all exception - (should).
+ * Handles all exceptions - (should).
  */
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
+    /**
+     * Handles CustomerNotFoundException.
+     * @param ex
+     * @param request
+     * @return
+     */
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", "Customer not found");
-
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Handles methodArgumentNotValidException (Validation exception).
+     * @param ex
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers,
