@@ -2,6 +2,7 @@ package com.zhanysh.pam.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -22,12 +23,10 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @NotBlank
     @Column(name = "FIRSTNAME")
     private String firstName;
 
-    @NotNull
     @NotBlank
     @Column(name = "LASTNAME")
     private String lastName;
