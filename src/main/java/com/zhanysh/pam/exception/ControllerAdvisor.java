@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -50,7 +51,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             HttpStatus status, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDate.now());
+        body.put("timestamp", LocalDateTime.now());
         body.put("status", status.value());
 
         List<String> errors = ex.getBindingResult()
@@ -61,6 +62,26 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
         body.put("errors", errors);
 
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Handles MissingServletRequestParameterException.
+     * @param ex
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
+    @Override
+    protected ResponseEntity<Object> handleMissingServletRequestParameter(
+            MissingServletRequestParameterException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
+        String error = ex.getParameterName() + " parameter is missing";
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", status.value());
+        body.put("error", error);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }
